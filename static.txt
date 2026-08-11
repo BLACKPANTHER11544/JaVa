@@ -1,0 +1,149 @@
+-> Packages in Java => These are like a folder, inside which we can create classes. 
+     example for packages : => 
+vaibhav(folder)
+    |----src(folder)
+              |----package1(folder) 
+              |                    |-------Main(folder)
+              |                                       |------Main.java
+              |----package2(folder)
+                                   |-------Hello(folder)
+                                                      |------Hello.java
+->Import in java => These are just for code sharing, and works exactly the same as of the imports in JS/TS. 
+
+-> static elements => static is a access modifier, and are decalre members that belongs to the class itself rather than to any spesific instance. For static data-members only a single copy is shared acrosss all instancess of the class. Static data-members are loaded into the memory long before any instance is every created. 
+         use of static access modifier : => 
+          static data-members don't need any instance for invocation, example : 
+          class Main{
+              public static void main(String args[]){
+                  public static void StaticFunction(){
+                     System.out.println("DON'T NEED ANY INSTANCE AND CAN BE CALLED DIRECTLY WITH CLASS NAME"); 
+                  }
+                  public static Integer number1 = new Integer(10) ; 
+                 
+                  public void firstFunciton(){
+                         System.out.println("NOT A STATIC MEMBER HENCE NEED AN INSTANCE FOR INVOCATION")
+                  }   
+                 public int number2 = 20 ; 
+                 //accessing the data members static and non-static 
+                 // non-static data member 
+                 Main obj = new Main() ; 
+                 System.out.println(obj.number2); 
+                 System.out.println(obj.firstFunction()); 
+                 // accessing Static data -member 
+                 System.out.println(Main.number1); 
+                 System.out.println(Main.StaticFunction())
+               }
+           }
+         
+         question =>  is this statement from the above code a valid statement : => 
+          // public static Integer number1 = new Ingeter(10) 
+          // Doubt here is as Static are members of class, and don't interact with instances, So how is this line valid 
+          anwser => 
+          public static Integer number = new Integer(10);
+          public int number1 = 20 ;
+          this data-member "number" won't need any object for invocation, but still this number is creating an object(Wrapper class) the only difference between these two is that, the primitive int number1 will be  stored in the stack memory along with its value(10), And the Static data-member's reference             variable will be in stack memory and the object will be in heap memory
+         And to access these numbers we can access them in the following way
+        since number1 is non-static hence it would need an instance of the class
+        therefore.
+        Main obj = new Main() ;
+        System.out.println(obj.number1) ;
+        // Output will be 20
+        And for static member number, we won't need any instance, as number is a member of class itself, hence to access number we can do
+        System.out.println(ClassName.number);
+        // Output will be 10 
+       Validation: Spot on. Being static only dictates how and where the reference variable is accessed (via the class name, shared globally). It doesn't stop you from assigning an object to it. number is a static reference variable pointing to an Integer object living in the heap.
+      
+
+       question => Can i class be a static class 
+       answer = > yes, but only the inner classes can be a static class not the outer class. 
+       example : 
+       // This following example also show's that we can have non-static members inside of static members, but the vica versa of this is not true.
+       class OuterClass{
+         public static class StaticNestedClass{
+             public void display(){
+                 System.out.println("Inside from a Static class"); 
+              }
+          }
+        pulbic static vod main(String args[]){
+           // since dispay() is not static member of StaticNestedClass hence it would need as instance of StaticNestedClass for invocation
+          // And StaticNestedClass being a Static data member of OuterClass won't need any instance for invocation, and since the invocation is happing in OutClass's main function, we'll have to create an chained(using dot operator) data-type(OuterClass.StaticNestedClasss) for object 
+          OuterClass.StaticNestedClass obj = new OuterClass.StaticNestedClass() ; 
+         obj.display() ;
+         // And if display from the StaticNestedClass is also a static member then we could have completely bypass the object creation process and could directly do . 
+          OuterClass.StaticNestedClass.display() ;
+         }
+      }
+      question => why can't we have a static inside of a non-static, when the vica versa is true. 
+      answer = > this is because of 3 things 
+                                   |----Lifespan MisMatch => Static data members lives till the entire lifetime of the program(java program), from the point of the class getting loaded till the program termination, whereas the non-static data members are destryed from the memory as soon as they are done executing.
+                                   |----As per the definition, static data member are attached to the class itself and not to any instance of the class
+                                   |----Scope rule, static data members can only be nested directly inside of the class and not inside of the local scope of non-static member.
+      example : and hence this following is an invalid java code.
+                     class Main{
+                        public void fun(){
+                           public static int number =10 ; 
+                         }
+                         public static void main(String args[]){
+                           Main obj = new Main() ;
+                           // this is invalid java code 
+                           System.out.println(obj.fun().number) 
+                         }
+                     }
+
+
+
+-> Static block => A static block also known as static initialuzation block of code is used to initialize static variables, This static initialization block is loaded into the memory only once, when the class is loaded into the momory. 
+         characteristics of static block : = > 
+             |---- execution timing => it run automatically the very fisrt time the class is loaded by the JVM, This happens before any object of the class is created 
+             |----order of execution => if a class have mutiple static members, then they execute in the exact order in which they appear in the code. 
+             |----No access to instances => Just like any static data-member which belongs to the class, these static initialization block aslo can't access the instance variables, or use "this" keyword.
+             |----Static initialization blocks don't return anything. (can't return anything)
+         example for static block initialization : 
+            class Main{
+                public static int number1 = 10 ; // number1 being a static variable who's value is already initialized. 
+                public static int number2 // number2 being a static variable who's value is not initialized 
+                static{
+                    number2 = number1*5 ; // this is initialize the number2 static variable
+                 }
+             }
+
+         question =>  What more are the usage/purpose of static initilazation block ? 
+         answer => As we know static initialization blocks are executed as soon as class is laoded in JVM, meaing it can handle all the necessary tasks that is required before executing the java class code 
+                           for example, initilazation of static data members, like if initializing static data variables requires loop,  then we can do that in here.  
+                           class Main{
+                               public static ArrayList<Integer> list = new ArrayList<>() ; 
+                               // looping over a static list for initializing. 
+                               static {
+                                   for(int i=0 ; i <=3 ; i++){
+                                      list.add(i) ; 
+                                   }
+                                }
+                            }
+
+                         along with that you can do execption handling as well in static. 
+                         static{
+                             try{
+                                // statements
+                             }catch(Execption e){
+                                // statement
+                             }
+                         }
+                      when doing try-catch in static then, in here we usually do statements like reading a file that may not exist.
+
+-> SingleTon classes => The only purpose for SingleTon class is to have only one/single instance. meaing a class which only allows a single instance of itself to be created (one and only one). 
+
+                  class Main{
+                     public static Main Instance ; 
+                     private Main(){
+                      // statements
+                     }
+                     public static Main getInstance(){
+                       if(Instance == null){
+                          Instance = new Main(); 
+                           return Instance.
+                       }
+                     return Instance 
+                    }
+                  }
+
+
