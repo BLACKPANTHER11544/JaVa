@@ -88,6 +88,42 @@ public class Bidirectional {
         }
     }
 
+    private void DeleteFirst() {
+        head = head.next;
+        head.previous = null;
+        size--;
+    }
+
+    private void DeleteLast() {
+        Node temp = head;
+        while (temp.next.next != null) {
+            temp = temp.next;
+        }
+        temp.next.previous = null;
+        temp.next = null;
+        size--;
+    }
+
+    private void DeleteRandom(int index) {
+        if (index == 0) {
+            DeleteFirst();
+            return;
+        } else if (index == size) {
+            DeleteLast();
+            return;
+        } else {
+            Node temp = head;
+            int i = 0;
+            while (i < index - 1) {
+                temp = temp.next;
+                i++;
+            }
+            temp.next = temp.next.next;
+            temp.next.previous = temp;
+            size--;
+        }
+    }
+
     public static void main(String[] args) {
         Bidirectional obj = new Bidirectional();
         // obj.InsertFisrt(7);
@@ -103,5 +139,15 @@ public class Bidirectional {
         obj.InsertNodeRandom(100, 1);
         System.out.println();
         obj.display();
+        obj.DeleteFirst();
+        System.out.println();
+        obj.display();
+        obj.DeleteLast();
+        System.out.println();
+        obj.display();
+        obj.DeleteRandom(3);
+        System.out.println();
+        obj.display();
+
     }
 }
