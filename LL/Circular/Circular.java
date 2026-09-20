@@ -34,8 +34,29 @@ public class Circular {
         System.out.print("End");
     }
 
+    // Insert at Start
+    private void InsertStartNode(int n) {
+        Node temp = head;
+        if (head == null) {
+            head = tail;
+        }
+        Node newNode = new Node(n);
+        head.previous = newNode;
+        newNode.next = head;
+        head = newNode;
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+        temp.next = head;
+        head.previous = temp;
+    }
+
     public static void main(String[] args) {
         Circular obj = new Circular();
+        obj.InsertStartNode(1);
+        obj.InsertStartNode(2);
+        obj.InsertStartNode(3);
+        System.out.println();
         obj.display();
     }
 }
