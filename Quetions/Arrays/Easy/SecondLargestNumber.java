@@ -1,4 +1,3 @@
-package Quetions.Arrays.Easy;
 
 import java.util.Arrays;
 
