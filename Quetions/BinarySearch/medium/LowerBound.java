@@ -1,4 +1,4 @@
-package Quetions.BinarySearch;
+package Quetions.BinarySearch.medium;
 
 public class LowerBound {
     // t.c -> O(log(n)), s.c -> O(1)

@@ -1,4 +1,4 @@
-package Quetions.BinarySearch;
+package Quetions.BinarySearch.medium;
 
 public class UpperBound {
     public static int upperBound(int[] nums, int x) {
