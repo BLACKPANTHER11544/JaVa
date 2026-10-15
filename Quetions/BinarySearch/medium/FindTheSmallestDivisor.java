@@ -21,47 +21,45 @@ public class FindTheSmallestDivisor {
         return ans;
     }
 
+    // t.c -> nlog(m) and s.c -> O(1);
     public static int smallDivisor(int[] arr, int threshold) {
         int maxElement = 0;
-        int totalSum = 0;
+
         for (int num : arr) {
-            maxElement = Math.max(num, maxElement);
-            totalSum += num;
+            maxElement = Math.max(maxElement, num);
         }
+
         int start = 1;
         int end = maxElement;
-        if (threshold >= totalSum) {
-            return 1;
-        }
-        if (threshold == arr.length) {
-            return end;
-        }
-        while (start <= end) {
+
+        while (start < end) {
             int mid = start + (end - start) / 2;
+
             if (functionCall(arr, mid, threshold)) {
                 end = mid;
             } else {
                 start = mid + 1;
             }
         }
+
         return start;
 
     }
 
     public static boolean functionCall(int[] arr, int divisor, int threshold) {
-        int total = 0;
+        long total = 0;
         for (int num : arr) {
-            total += (num + divisor - 1) / divisor;
+            total += (num + (long) divisor - 1) / divisor;
             if (total > threshold) {
                 return false;
             }
         }
-        return total <= threshold;
+        return true;
     }
 
     public static void main(String[] args) {
-        int[] arr = { 8, 4, 2, 3 };
-        int limit = 10;
+        int[] arr = { 7, 15, 6, 3 };
+        int limit = 8;
         System.out.println(FindTheSmallestDivisor.smallDivisor(arr, limit));
     }
 }
