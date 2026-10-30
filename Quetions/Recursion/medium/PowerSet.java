@@ -14,6 +14,7 @@ public class PowerSet {
         return result;
     }
 
+    // t.c-> O(n2^n)
     public static void solve1(
             List<Integer> curr,
             int counter,
