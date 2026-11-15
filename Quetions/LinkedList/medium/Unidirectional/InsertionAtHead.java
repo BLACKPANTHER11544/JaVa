@@ -1,11 +1,11 @@
-package Quetions.LinkedList.medium;
+package Quetions.LinkedList.medium.Unidirectional;
 
-public class DeleteTail {
+public class InsertionAtHead {
     private Node head;
     private Node tail;
     private int size;
 
-    DeleteTail() {
+    InsertionAtHead() {
         this.size = 0;
     }
 
@@ -17,20 +17,16 @@ public class DeleteTail {
             this.value = n;
         }
 
-        Node() {
-            this.value = 0;
-        }
-
         Node(int n, Node node) {
             this.value = n;
             this.next = node;
         }
     }
 
-    private void InserStart(int n) {
-        Node nextNode = new Node(n);
-        nextNode.next = head;
-        head = nextNode;
+    private void insertathead(int n) {
+        Node temp = new Node(n);
+        temp.next = head;
+        head = temp;
         if (tail == null) {
             tail = head;
         }
@@ -44,25 +40,19 @@ public class DeleteTail {
             temp = temp.next;
         }
         System.out.println("size: " + size);
-    }
 
-    private void deleteLast() {
-        Node temp = head;
-        while (temp.next.next != null) {
-            temp = temp.next;
-        }
-        tail = temp;
-        tail.next = null;
-        size--;
     }
 
     public static void main(String[] args) {
-        DeleteTail ob1 = new DeleteTail();
-        ob1.InserStart(3);
-        ob1.InserStart(2);
-        ob1.InserStart(1);
-        ob1.display();
-        ob1.deleteLast();
+        InsertionAtHead ob1 = new InsertionAtHead();
+        ob1.insertathead(6);
+        ob1.insertathead(5);
+        ob1.insertathead(4);
+        ob1.insertathead(3);
+        ob1.insertathead(2);
+        ob1.insertathead(1);
+
         ob1.display();
     }
+
 }

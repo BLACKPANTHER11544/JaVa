@@ -1,4 +1,4 @@
-package Quetions.LinkedList.medium;
+package Quetions.LinkedList.medium.Unidirectional;
 
 public class DeleteHead {
     private Node head;

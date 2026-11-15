@@ -1,13 +1,17 @@
-package Quetions.LinkedList.medium;
+package Quetions.LinkedList.medium.Unidirectional;
 
-public class DeleteKthValueNode {
+public class Search {
     private Node head;
     private Node tail;
     private int size;
 
+    Search() {
+        this.size = 0;
+    }
+
     private class Node {
-        int value;
         Node next;
+        int value;
 
         Node(int n) {
             this.value = n;
@@ -19,7 +23,7 @@ public class DeleteKthValueNode {
         }
     }
 
-    private void insert(int n) {
+    private void insertHead(int n) {
         Node temp = new Node(n);
         temp.next = head;
         head = temp;
@@ -35,38 +39,32 @@ public class DeleteKthValueNode {
             System.out.print(temp.value + " -> ");
             temp = temp.next;
         }
-        System.out.println("size: " + size);
+        System.out.println("size:" + size);
     }
 
-    private void deleteNodewithValue(int X) {
+    private boolean searchElement(int n) {
         if (head == null) {
-            return;
-        }
-        if (head.value == X) {
-            head = head.next;
-            return;
+            return false;
         }
         Node temp = head;
-        while (temp.next != null && temp.next.value != X) {
+        while (temp != null && temp.value != n) {
             temp = temp.next;
         }
-        if (temp.next != null) {
-            temp.next = temp.next.next;
+        if (temp == null) {
+            return false;
         }
-        size--;
+        return true;
     }
 
     public static void main(String[] args) {
-        DeleteKthValueNode ob1 = new DeleteKthValueNode();
-        ob1.insert(6);
-        ob1.insert(5);
-        ob1.insert(4);
-        ob1.insert(3);
-        ob1.insert(2);
-        ob1.insert(1);
-        ob1.display();
-        ob1.deleteNodewithValue(4);
-        ob1.display();
+        Search ob = new Search();
+        // ob.insertHead(6);
+        // ob.insertHead(5);
+        // ob.insertHead(4);
+        // ob.insertHead(3);
+        // ob.insertHead(2);
+        // ob.insertHead(1);
+        // ob.display();
+        System.out.println(ob.searchElement(10));
     }
-
 }

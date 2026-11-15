@@ -1,4 +1,4 @@
-package Quetions.LinkedList.medium;
+package Quetions.LinkedList.medium.Unidirectional;
 
 public class DeleteKthElement {
     private Node head;
